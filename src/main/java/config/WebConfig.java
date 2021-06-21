@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -26,6 +27,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import service.IUserService;
+import service.impl.Usersevice;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,7 +39,8 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("controller")
-@PropertySource("classpath:fileUpload.properties")
+@EnableJpaRepositories("repository")
+//@PropertySource("classpath:fileUpload.properties")
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
     @Override
@@ -116,27 +120,34 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 
 
 //UpLoadFile
-    @Autowired
-    Environment environment;
+//    @Autowired
+//    Environment environment;
+//
+//    @Bean(name = "multipartResolver")
+//    public CommonsMultipartResolver resolver(){
+//        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+//        commonsMultipartResolver.setMaxUploadSizePerFile(5240000);
+//        return commonsMultipartResolver;
+//    }
+//
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        String file = environment.getProperty("fileImg").toString();
+//        registry.addResourceHandler("/i/**")
+//                .addResourceLocations("file:" + file);
+//    }
+//
+//    @Override
+//    public void configureDefaultServletHandling(
+//            DefaultServletHandlerConfigurer configurer) {
+//        configurer.enable();
+//    }
 
-    @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver resolver(){
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        commonsMultipartResolver.setMaxUploadSizePerFile(5240000);
-        return commonsMultipartResolver;
-    }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String file = environment.getProperty("fileImg").toString();
-        registry.addResourceHandler("/i/**")
-                .addResourceLocations("file:" + file);
-    }
-
-    @Override
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
+//Biến môi trượng dư án
+    @Bean
+    public IUserService userService(){
+        return new Usersevice();
     }
 
 

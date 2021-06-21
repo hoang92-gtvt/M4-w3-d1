@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm mới User</title>
+</head>
+<body>
+<h1 style="color: mediumblue">Điền đầy đủ thông tin vào form</h1>
+
+<th:block th:if="">
+    <p th:text=""></p>
+</th:block>
+<div>
+    <form action="" method="post" enctype="multipart/form-data" th:object="${user}">
+        <div>
+            <label>Name</label><br>
+            <input type="text" th:field="*{name}">
+        </div>
+        <div>
+            <label>Age</label><br>
+            <input type="text" th:field="*{age}">
+        </div>
+        <div>
+            <label>Gender</label><br>
+            <input type="radio" th:field="*{gender}" value="Nam">Nam
+            <input type="radio" th:field="*{gender}" value="Nữ">Nữ
+        </div>
+        <div>
+            <label>Email</label><br>
+            <input type="text" th:field="*{email}">
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+
+        <th:block th:if="">
+            <p th:text=""></p>
+        </th:block>
+
+    </form>
+</div>
+
+
+</body>
+</html>
