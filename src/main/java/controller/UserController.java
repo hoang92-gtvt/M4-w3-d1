@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
     @GetMapping("/user")
     public ModelAndView showForm() {
-        ModelAndView modelAndView = new ModelAndView("/index");
+        ModelAndView modelAndView = new ModelAndView("/users/index");
         modelAndView.addObject("user", new User());
         return modelAndView;
     }
@@ -22,8 +22,8 @@ public class UserController {
     @PostMapping("/validateUser")
     public ModelAndView checkValidation(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
-            return new ModelAndView("/index");
+            return new ModelAndView("/users/index");
         }
-        return new ModelAndView("/result");
+        return new ModelAndView("/users/result");
     }
 }
