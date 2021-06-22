@@ -1,25 +1,27 @@
 package model;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+@Component
 public class CheckEmail implements Validator {
-    private String email;
-
-    public CheckEmail(String email) {
-        this.email = email;
-    }
+    private UserFile userFile;
 
     public CheckEmail() {
     }
 
-    public String getEmail() {
-        return email;
+    public CheckEmail(UserFile userFile) {
+        this.userFile = userFile;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public UserFile getUserFile() {
+        return userFile;
+    }
+
+    public void setUserFile(UserFile userFile) {
+        this.userFile = userFile;
     }
 
     @Override
@@ -29,10 +31,12 @@ public class CheckEmail implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        CheckEmail checkEmail = (CheckEmail) target;
-        String mail = checkEmail.getEmail();
+        UserFile userFile = (UserFile) target;
+        String mail = userFile.getEmail();
         ValidationUtils.rejectIfEmpty(errors,"mail","mail.empty");
-
+        if (!mail.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$\n")){
+            errors.rejectValue("mail","fales");
+        }
 
 
     }
